@@ -22,7 +22,7 @@ A<!DOCTYPE html>
     }
     .card-front, .card-back {
       position: absolute;
-      top: 0;
+      top: 10;
       left: 0;
       width: 100%;
       height: 100%;
@@ -46,10 +46,14 @@ A<!DOCTYPE html>
       transform: rotateY(0deg);
     }
     .shuffle-button {
+      position: fixed;
       display: block;
       margin: 10px auto;
-      padding: 10px;
-      font-size: 20px;
+      top: 5;
+      left: 50%;
+      transform: translateX(-50%);
+      padding: 7px;
+      font-size: 12px;
       font-weight: bold;
       background-color: blue;
       color: white;
