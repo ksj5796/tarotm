@@ -1,0 +1,197 @@
+A<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Tarot Cards</title>
+  <style>
+    .card-container {
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      height: 40%;
+      padding: 10px;
+    }
+    .card {
+      position: relative;
+      width: 28px;
+      height: 50px;
+      margin: 2px;
+      cursor: pointer;
+    }
+    .card-front, .card-back {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: white;
+      border: 1px solid black;
+      font-size: 20px;
+      font-weight: bold;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      backface-visibility: hidden;
+      transition: transform 0.3s ease-in-out;
+    }
+    .card-back {
+      transform: rotateY(180deg);
+    }
+    .card.flipped .card-front {
+      transform: rotateY(180deg);
+    }
+    .card.flipped .card-back {
+      transform: rotateY(0deg);
+    }
+    .shuffle-button {
+      display: block;
+      margin: 10px auto;
+      padding: 10px;
+      font-size: 20px;
+      font-weight: bold;
+      background-color: blue;
+      color: white;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+  </style>
+</head>
+<body>
+  <div class="card-container"></div>
+  <button class="shuffle-button">Shuffle Cards</button>
+  <script>
+    // define tarotCards array with 10 cards
+    let tarotCards = [
+      {front: "뒷면.png", back: "0.png"},
+      {front: "뒷면.png", back: "1.png"},
+      {front: "뒷면.png", back: "2.png"},
+      {front: "뒷면.png", back: "3.png"},
+      {front: "뒷면.png", back: "4.png"},
+      {front: "뒷면.png", back: "5.png"},
+      {front: "뒷면.png", back: "6.png"},
+      {front: "뒷면.png", back: "7.png"},
+      {front: "뒷면.png", back: "8.png"},
+      {front: "뒷면.png", back: "9.png"},
+      {front: "뒷면.png", back: "10.png"},
+      {front: "뒷면.png", back: "11.png"},
+      {front: "뒷면.png", back: "12.png"},
+      {front: "뒷면.png", back: "13.png"},
+      {front: "뒷면.png", back: "14.png"},
+      {front: "뒷면.png", back: "15.png"},
+      {front: "뒷면.png", back: "16.png"},
+      {front: "뒷면.png", back: "17.png"},
+      {front: "뒷면.png", back: "18.png"},
+      {front: "뒷면.png", back: "19.png"},
+      {front: "뒷면.png", back: "20.png"},
+      {front: "뒷면.png", back: "21.png"},
+      {front: "뒷면.png", back: "완드1.png"},
+      {front: "뒷면.png", back: "완드2.png"},
+      {front: "뒷면.png", back: "완드3.png"},
+      {front: "뒷면.png", back: "완드4.png"},
+      {front: "뒷면.png", back: "완드5.png"},
+      {front: "뒷면.png", back: "완드6.png"},
+      {front: "뒷면.png", back: "완드7.png"},
+      {front: "뒷면.png", back: "완드8.png"},
+      {front: "뒷면.png", back: "완드9.png"},
+      {front: "뒷면.png", back: "완드10.png"},
+      {front: "뒷면.png", back: "컵1.png"},
+      {front: "뒷면.png", back: "컵2.png"},
+      {front: "뒷면.png", back: "컵3.png"},
+      {front: "뒷면.png", back: "컵4.png"},
+      {front: "뒷면.png", back: "컵5.png"},
+      {front: "뒷면.png", back: "컵6.png"},
+      {front: "뒷면.png", back: "컵7.png"},
+      {front: "뒷면.png", back: "컵8.png"},
+      {front: "뒷면.png", back: "컵9.png"},
+      {front: "뒷면.png", back: "컵10.png"},
+      {front: "뒷면.png", back: "검1.png"},
+      {front: "뒷면.png", back: "검2.png"},
+      {front: "뒷면.png", back: "검3.png"},
+      {front: "뒷면.png", back: "검4.png"},
+      {front: "뒷면.png", back: "검5.png"},
+      {front: "뒷면.png", back: "검6.png"},
+      {front: "뒷면.png", back: "검7.png"},
+      {front: "뒷면.png", back: "검8.png"},
+      {front: "뒷면.png", back: "검9.png"},
+      {front: "뒷면.png", back: "검10.png"},
+      {front: "뒷면.png", back: "팬1.png"},
+      {front: "뒷면.png", back: "팬2.png"},
+      {front: "뒷면.png", back: "팬3.png"},
+      {front: "뒷면.png", back: "팬4.png"},
+      {front: "뒷면.png", back: "팬5.png"},
+      {front: "뒷면.png", back: "팬6.png"},
+      {front: "뒷면.png", back: "팬7.png"},
+      {front: "뒷면.png", back: "팬8.png"},
+      {front: "뒷면.png", back: "팬9.png"},
+      {front: "뒷면.png", back: "팬10.png"},
+      
+      {front: "뒷면.png", back: "완드킹.png"},
+      {front: "뒷면.png", back: "완드퀸.png"},
+      {front: "뒷면.png", back: "완드기사.png"},
+      {front: "뒷면.png", back: "완드시종.png"},
+      {front: "뒷면.png", back: "컵킹.png"},
+      {front: "뒷면.png", back: "컵퀸.png"},
+      {front: "뒷면.png", back: "컵기사.png"},
+      {front: "뒷면.png", back: "컵시종.png"},
+      {front: "뒷면.png", back: "검킹.png"},
+      {front: "뒷면.png", back: "검퀸.png"},
+      {front: "뒷면.png", back: "검기사.png"},
+      {front: "뒷면.png", back: "검시종.png"},
+      {front: "뒷면.png", back: "팬킹.png"},
+      {front: "뒷면.png", back: "팬퀸.png"},
+      {front: "뒷면.png", back: "팬기사.png"},
+      {front: "뒷면.png", back: "팬시종.png"},
+      
+      
+];
+// get reference to the card container element
+const cardContainer = document.querySelector(".card-container");
+
+// function to shuffle the tarotCards array
+function shuffleCards() {
+  tarotCards.sort(() => Math.random() - 0.5);
+  renderCards();
+}
+
+// function to render the cards in the container
+function renderCards() {
+  cardContainer.innerHTML = "";
+  tarotCards.forEach((card) => {
+    const cardElement = document.createElement("div");
+    cardElement.classList.add("card");
+
+    const cardFront = document.createElement("div");
+    cardFront.classList.add("card-front");
+    cardFront.style.backgroundImage = `url(${card.front})`;
+
+    const cardBack = document.createElement("div");
+    cardBack.classList.add("card-back");
+    cardBack.style.backgroundImage = `url(${card.back})`;
+
+    cardElement.appendChild(cardFront);
+    cardElement.appendChild(cardBack);
+    cardContainer.appendChild(cardElement);
+
+    // add event listener to flip card on click
+    cardFront.addEventListener("click", () => {
+      cardElement.classList.add("flipped");
+    });
+
+    cardBack.addEventListener("click", () => {
+      cardElement.classList.remove("flipped");
+    });
+  });
+}
+
+// add event listener to shuffle button
+const shuffleButton = document.querySelector(".shuffle-button");
+shuffleButton.addEventListener("click", shuffleCards);
+
+// render the cards on page load
+renderCards();
+</script>
+</body>
+</html>
